@@ -108,6 +108,20 @@
             border-left: 3px solid var(--primary-color);
             padding-left: 12px;
         }
+	 
+	@keyframes star-fall {
+    	0% { transform: translateY(-100px) translateX(0) rotate(-45deg); 	opacity: 1; }
+    	100% { transform: translateY(100vh) translateX(-500px) 	rotate(-45deg); opacity: 0; }
+}
+
+.star {
+    position: fixed;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+    animation: star-fall 3s linear infinite;
+    z-index: -1;  
+}
 
          
         @media (max-width: 768px) {
@@ -163,5 +177,41 @@
             };
         });
     </script>
+<div id="music-btn" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; cursor: pointer; font-size: 2rem;">
+    🎵
+</div>
+<audio id="bg-audio" src="/music/love.mp3" loop></audio>
+
+<script>
+    const btn = document.getElementById('music-btn');
+    const audio = document.getElementById('bg-audio');
+    let isPlaying = false;
+
+    btn.onclick = () => {
+        if (isPlaying) {
+            audio.pause();
+            btn.style.animation = "none";
+        } else {
+            audio.play();
+            btn.style.animation = "rotate 3s linear infinite"; 
+        }
+        isPlaying = !isPlaying;
+    };
+</script>
+
+<style>
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
 </body>
+<script>
+    function createStar() {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDuration = Math.random() * 2 + 3 + 's';
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), 5000);
+    }
+    setInterval(createStar, 800);
+</script>
 </html>
