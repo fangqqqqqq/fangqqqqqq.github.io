@@ -139,18 +139,32 @@
             padding: 20px 0 120px 0; position: relative; z-index: 10; opacity: 0.8;
         }
 
+         
         #music-btn {
-            position: fixed; bottom: 30px; right: 30px; z-index: 9999; cursor: pointer;
+            position: fixed; 
+            bottom: 30px;  
+            right: 30px; 
+            z-index: 20000;  
+            cursor: pointer;
             width: 45px; height: 45px; background: #fff; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1); font-size: 1.4rem;
         }
 
+         
         @media (max-width: 768px) { 
             .gallery-grid { column-count: 2; } h1 { font-size: 2.2rem; } 
+            
             #dm-input-area { width: 90%; bottom: 20px; }
             #dm-input { width: 100%; }
             #message-board-section { padding: 0 20px; }
+
+             
+            #music-btn {
+                bottom: auto;  
+                top: 20px;     
+                right: 20px;   
+            }
         }
         
         .star-style {
@@ -165,7 +179,7 @@
     
     <div id="danmaku-container"></div>
     <div id="dm-input-area">
-        <input type="text" id="dm-input" placeholder="写下你的comments" maxlength="30">
+        <input type="text" id="dm-input" placeholder="写下你的祝福 (永久保存)..." maxlength="30">
         <button id="dm-btn">发送 ❤️</button>
     </div>
 
@@ -247,9 +261,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
-        
-        
-        
         const APP_ID = '1bb3a23f54f31dadc50f15ce6608a9f5'; 
         const REST_KEY = 'faf97987bbddd381428a4103e0556ed9'; 
         const BMOB_URL = 'https://api.bmobcloud.com/1/classes/Danmaku';
@@ -260,13 +271,8 @@
             setTimeout(() => {
                 loader.style.display = 'none';
                 AOS.init({ once: true, offset: 60 });
-                
-                
                 loadCloudMessages();
-                
-                
                 startRandomAtmosphere();
-                
             }, 600);
         });
 
@@ -319,7 +325,6 @@
             else messageList.appendChild(card);
         }
 
-        
         function saveToCloud(text) {
             fetch(BMOB_URL, {
                 method: 'POST',
@@ -331,7 +336,6 @@
             .catch(e => console.error('Save failed:', e));
         }
 
-        
         function loadCloudMessages() {
             fetch(BMOB_URL + '?order=-createdAt&limit=50', {
                 method: 'GET',
@@ -348,7 +352,6 @@
                         const text = item.content;
                         const date = item.createdAt.split(' ')[0];
                         addCardToWall(text, date);
-                        
                         setTimeout(() => shootDanmaku(text), i * 1500);
                         i++;
                     });
@@ -356,23 +359,18 @@
             })
             .catch(e => {
                 console.error('Load failed:', e);
-                
                 messageList.innerHTML = '<div style="color:#fff">网络正在开小差，但爱意永不失联...</div>';
             });
         }
 
-        
         function startRandomAtmosphere() {
             const presets = [
                 "永远开心快乐呀！", "今天的风好甜~", "哇，这张照片好美！", 
                 "Love You Forever", "要一直幸福下去哦 ❤️", "羡慕这两个人~",
                 "背景音乐好好听", "打卡打卡！", "✨✨✨", "好浪漫呀~"
             ];
-            
-            
             setInterval(() => {
                 const msg = presets[Math.floor(Math.random() * presets.length)];
-                
                 shootDanmaku(msg, false); 
             }, 4000);
         }
