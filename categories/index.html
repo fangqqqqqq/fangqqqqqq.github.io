@@ -13,6 +13,7 @@
         :root { --primary-pink: #ff7675; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+         
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.2); }
         ::-webkit-scrollbar-thumb { background: rgba(255, 118, 117, 0.6); border-radius: 10px; }
@@ -28,58 +29,73 @@
             position: relative;
         }
 
+         
         #page-loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #fff0f5; z-index: 99999;
             display: flex; justify-content: center; align-items: center; flex-direction: column;
             transition: opacity 0.6s ease-out;
         }
-        .heart-loader {
-            width: 50px; height: 50px; background: #ff7675;
-            transform: rotate(45deg); animation: heartbeat 1.2s infinite; position: relative;
-        }
-        .heart-loader::before, .heart-loader::after {
-            content: ""; width: 50px; height: 50px; background: #ff7675;
-            border-radius: 50%; position: absolute; left: -25px;
-        }
+        .heart-loader { width: 50px; height: 50px; background: #ff7675; transform: rotate(45deg); animation: heartbeat 1.2s infinite; position: relative; }
+        .heart-loader::before, .heart-loader::after { content: ""; width: 50px; height: 50px; background: #ff7675; border-radius: 50%; position: absolute; left: -25px; }
         .heart-loader::after { left: auto; top: -25px; }
-        .loading-text {
-            margin-top: 50px; font-family: 'Ma Shan Zheng', cursive;
-            color: #ff7675; font-size: 1.2rem; animation: blink 2s infinite;
-        }
+        .loading-text { margin-top: 50px; font-family: 'Ma Shan Zheng', cursive; color: #ff7675; font-size: 1.2rem; animation: blink 2s infinite; }
         @keyframes heartbeat { 0% { transform: rotate(45deg) scale(0.8); } 15% { scale(1); } 100% { scale(0.8); } }
 
-        #danmaku-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 70%;
-            z-index: 9998; pointer-events: none; overflow: hidden;
-        }
-        .danmaku-item {
-            position: absolute; white-space: nowrap; font-family: 'Ma Shan Zheng', cursive;
-            font-size: 1.5rem; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); opacity: 0.9;
-            will-change: transform;
-        }
+         
+        #danmaku-container { position: fixed; top: 0; left: 0; width: 100%; height: 70%; z-index: 9998; pointer-events: none; overflow: hidden; }
+        .danmaku-item { position: absolute; white-space: nowrap; font-family: 'Ma Shan Zheng', cursive; font-size: 1.5rem; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); opacity: 0.9; will-change: transform; }
 
-        #message-board-section {
-            max-width: 1000px; margin: 60px auto 100px auto; position: relative; z-index: 10;
+         
+        #login-trigger {
+            position: fixed; top: 20px; right: 20px; z-index: 20000;
+            background: rgba(255,255,255,0.8); padding: 5px 15px; border-radius: 20px;
+            cursor: pointer; font-size: 0.9rem; transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-family: sans-serif;
         }
-        .board-title {
-            text-align: center; font-family: 'Ma Shan Zheng', cursive; font-size: 2rem; color: #fff;
-            margin-bottom: 30px; text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        #login-trigger:hover { background: #fff; transform: translateY(-2px); }
+
+        #login-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 20001;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
         }
-        .message-list {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;
+        .login-box {
+            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 15px;
+            width: 300px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative;
         }
+        .login-box h3 { margin-bottom: 20px; color: #ff7675; font-family: 'Ma Shan Zheng', cursive; }
+        .login-input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
+        .login-btn-submit { width: 100%; padding: 10px; background: #ff7675; color: white; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .login-btn-submit:hover { background: #ff5252; }
+        .close-modal { position: absolute; top: 10px; right: 15px; cursor: pointer; color: #999; font-size: 1.5rem; }
+
+         
+        .delete-btn {
+            position: absolute; top: -8px; right: -8px;
+            width: 20px; height: 20px; background: #ff4757; color: white;
+            border-radius: 50%; font-size: 12px; line-height: 20px; text-align: center;
+            cursor: pointer; display: none;  
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 5;
+        }
+         
+        .message-card:hover .delete-btn.show-admin { display: block; }
+
+         
+        #message-board-section { max-width: 1000px; margin: 60px auto 100px auto; position: relative; z-index: 10; }
+        .board-title { text-align: center; font-family: 'Ma Shan Zheng', cursive; font-size: 2rem; color: #fff; margin-bottom: 30px; text-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .message-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
         .message-card {
             background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px);
             padding: 15px 25px; border-radius: 15px 15px 15px 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             font-family: 'Ma Shan Zheng', cursive; font-size: 1.1rem; color: #555;
             animation: popIn 0.5s ease; max-width: 300px; word-wrap: break-word;
-            border: 1px solid rgba(255,255,255,0.9);
+            border: 1px solid rgba(255,255,255,0.9); position: relative;
         }
-        .message-time {
-            display: block; font-size: 0.7rem; color: #999; margin-top: 5px; text-align: right; font-family: sans-serif;
-        }
+        .message-time { display: block; font-size: 0.7rem; color: #999; margin-top: 5px; text-align: right; font-family: sans-serif; }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
          
@@ -92,93 +108,37 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-         
-        .hide-input {
-            opacity: 0;
-            pointer-events: none;
-            transform: translateX(-50%) translateY(20px) !important;
-        }
-        
+        .hide-input { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(20px) !important; }
         #dm-input-area:hover { transform: translateX(-50%) translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        #dm-input {
-            border: none; background: transparent; outline: none;
-            font-family: 'Noto Serif SC', serif; font-size: 1rem; color: #555; width: 220px;
-        }
-        #dm-btn {
-            background: linear-gradient(45deg, #ff9a9e, #ff6b81);
-            color: white; border: none; padding: 8px 25px; border-radius: 30px;
-            margin-left: 10px; cursor: pointer; font-family: 'Ma Shan Zheng', cursive;
-            font-size: 1rem; transition: transform 0.2s;
-        }
+        #dm-input { border: none; background: transparent; outline: none; font-family: 'Noto Serif SC', serif; font-size: 1rem; color: #555; width: 220px; }
+        #dm-btn { background: linear-gradient(45deg, #ff9a9e, #ff6b81); color: white; border: none; padding: 8px 25px; border-radius: 30px; margin-left: 10px; cursor: pointer; font-family: 'Ma Shan Zheng', cursive; font-size: 1rem; transition: transform 0.2s; }
         #dm-btn:active { transform: scale(0.95); }
 
+         
         header { text-align: center; margin-bottom: 50px; position: relative; z-index: 10; }
-        h1 {
-            font-family: 'Ma Shan Zheng', cursive; font-size: 3.8rem; font-weight: 400;
-            background: linear-gradient(45deg, #ff9a9e, #ff6b81, #a18cd1, #fbc2eb, #ff9a9e);
-            background-size: 300%; -webkit-background-clip: text; background-clip: text; color: transparent; 
-            animation: textFlow 6s ease-in-out infinite; filter: drop-shadow(0 2px 5px rgba(255, 118, 117, 0.3));
-            margin-bottom: 10px;
-        }
+        h1 { font-family: 'Ma Shan Zheng', cursive; font-size: 3.8rem; font-weight: 400; background: linear-gradient(45deg, #ff9a9e, #ff6b81, #a18cd1, #fbc2eb, #ff9a9e); background-size: 300%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: textFlow 6s ease-in-out infinite; filter: drop-shadow(0 2px 5px rgba(255, 118, 117, 0.3)); margin-bottom: 10px; }
         @keyframes textFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
         .subtitle { font-family: 'Ma Shan Zheng', cursive; font-size: 1.5rem; color: #fff; margin-bottom: 30px; opacity: 0.95; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        #love-timer {
-            font-family: 'Ma Shan Zheng', cursive; font-size: 1.2rem; color: #ff7675;
-            background: rgba(255,255,255,0.95); padding: 10px 30px; border-radius: 50px;
-            display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+        #love-timer { font-family: 'Ma Shan Zheng', cursive; font-size: 1.2rem; color: #ff7675; background: rgba(255,255,255,0.95); padding: 10px 30px; border-radius: 50px; display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        .gallery-grid {
-            column-count: 4; column-gap: 25px; max-width: 1400px; margin: 0 auto;
-            position: relative; z-index: 10;
-        }
-        .gallery-item {
-            break-inside: avoid; margin-bottom: 25px; position: relative; background-color: #fff;
-            padding: 12px 12px 45px 12px; border-radius: 3px; box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-            transition: all 0.4s; cursor: zoom-in;
-        }
+        .gallery-grid { column-count: 4; column-gap: 25px; max-width: 1400px; margin: 0 auto; position: relative; z-index: 10; }
+        .gallery-item { break-inside: avoid; margin-bottom: 25px; position: relative; background-color: #fff; padding: 12px 12px 45px 12px; border-radius: 3px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); transition: all 0.4s; cursor: zoom-in; }
         .gallery-item:nth-child(even) { transform: rotate(2deg); }
         .gallery-item:nth-child(odd) { transform: rotate(-1.5deg); }
         .gallery-item:hover { transform: rotate(0deg) scale(1.05) translateY(-10px) !important; z-index: 20; }
         .gallery-item img { width: 100%; height: auto; display: block; border: 1px solid #f3f3f3; }
 
-        footer {
-            text-align: center; font-family: 'Ma Shan Zheng', cursive; color: #fff;
-            padding: 20px 0 120px 0; position: relative; z-index: 10; opacity: 0.8;
-        }
+        footer { text-align: center; font-family: 'Ma Shan Zheng', cursive; color: #fff; padding: 20px 0 120px 0; position: relative; z-index: 10; opacity: 0.8; }
 
          
         #music-btn {
-            position: fixed; 
-            bottom: 40px; 
-            right: 40px; 
-            z-index: 20000;
-            cursor: pointer;
-            width: 50px; 
-            height: 50px; 
-             
-            background: linear-gradient(135deg, #ff9a9e 0%, #ff6b81 100%);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-             
-            box-shadow: 0 8px 20px rgba(255, 107, 129, 0.4);
-            font-size: 1.5rem;
-            color: white;
-            transition: all 0.3s ease;
-             
+            position: fixed; bottom: 40px; right: 40px; z-index: 20000; cursor: pointer;
+            width: 50px; height: 50px; background: linear-gradient(135deg, #ff9a9e 0%, #ff6b81 100%);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 20px rgba(255, 107, 129, 0.4); font-size: 1.5rem; color: white; transition: all 0.3s ease;
         }
-        
-         
-        .music-playing {
-            animation: recordSpin 3s linear infinite;
-            box-shadow: 0 8px 25px rgba(255, 107, 129, 0.6) !important;
-        }
-        
-        @keyframes recordSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        .music-playing { animation: recordSpin 3s linear infinite; box-shadow: 0 8px 25px rgba(255, 107, 129, 0.6) !important; }
+        @keyframes recordSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
          
         @media (max-width: 768px) { 
@@ -189,18 +149,13 @@
             #message-board-section { padding: 0 20px; }
 
              
-            #music-btn {
-                bottom: auto !important;  
-                top: 20px !important;    
-                right: 20px !important;
-                width: 40px; height: 40px; font-size: 1.2rem;  
-            }
+            #music-btn { bottom: auto !important; top: 20px !important; right: 20px !important; width: 40px; height: 40px; font-size: 1.2rem; }
+            
+             
+            #login-trigger { top: 25px; right: 70px; padding: 4px 10px; font-size: 0.8rem; }
         }
         
-        .star-style {
-            position: fixed; top: 0; background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
-            width: 2px; height: 70px; z-index: 1; pointer-events: none; border-radius: 99px;
-        }
+        .star-style { position: fixed; top: 0; background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8)); width: 2px; height: 70px; z-index: 1; pointer-events: none; border-radius: 99px; }
         @keyframes dmLeft { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
     </style>
 </head>
@@ -209,8 +164,23 @@
     
     <div id="danmaku-container"></div>
     
+    <div id="login-trigger">🔒 管理员</div>
+
+    <div id="login-modal">
+        <div class="login-box">
+            <div class="close-modal" onclick="toggleLoginModal()">×</div>
+            <h3>管理员登录</h3>
+            <input type="text" id="username" class="login-input" placeholder="账号">
+            <input type="password" id="password" class="login-input" placeholder="密码">
+            
+            <button class="login-btn-submit" onclick="registerUser()" style="background:#aaa; margin-bottom:10px;">注册(仅第一次用)</button>
+            
+            <button class="login-btn-submit" onclick="loginUser()">登录</button>
+        </div>
+    </div>
+
     <div id="dm-input-area">
-        <input type="text" id="dm-input" placeholder="写下你的comments" maxlength="30">
+        <input type="text" id="dm-input" placeholder="写下你的祝福 (永久保存)..." maxlength="30">
         <button id="dm-btn">发送 ❤️</button>
     </div>
 
@@ -290,11 +260,33 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bmob.js-sdk-v4@4.0.0/dist/Bmob-4.0.0.min.js"></script>
+
     <script>
-        const APP_ID = '1bb3a23f54f31dadc50f15ce6608a9f5'; 
-        const REST_KEY = 'faf97987bbddd381428a4103e0556ed9'; 
-        const BMOB_URL = 'https://api.bmobcloud.com/1/classes/Danmaku';
+        
+        
+        
+        const SECRET_KEY = '2724ee2b975a1ff9'; 
+        const API_KEY = 'MyLoveGallery999';   
+
+        let isUserAdmin = false; 
+
+        
+        try {
+            Bmob.initialize(SECRET_KEY, API_KEY);
+            console.log("Bmob 初始化成功");
+            
+            
+            let current = Bmob.User.current();
+            if(current) {
+                console.log("已登录:", current.username);
+                
+                if(current.username === 'fangq' || current.isAdmin === true) {
+                    isUserAdmin = true;
+                    document.getElementById('login-trigger').innerText = "👤 " + current.username;
+                }
+            }
+        } catch(e) { console.error("Bmob Init Error:", e); }
 
         window.addEventListener('load', () => {
             const loader = document.getElementById('page-loader');
@@ -308,22 +300,57 @@
         });
 
         
-        Fancybox.bind("[data-fancybox]", { 
-            Carousel: { infinite: true }, 
-            Thumbs: { type: "classic" }, 
-            Toolbar: { display: { right: ["close"] } },
-            on: {
-                
-                "Carousel.ready": (fancybox) => {
-                    document.getElementById('dm-input-area').classList.add('hide-input');
-                },
-                
-                "close": (fancybox) => {
-                    document.getElementById('dm-input-area').classList.remove('hide-input');
+        const loginModal = document.getElementById('login-modal');
+        document.getElementById('login-trigger').onclick = () => {
+            if(Bmob.User.current()) {
+                if(confirm("确定要退出登录吗？")) {
+                    Bmob.User.logout();
+                    location.reload();
                 }
+            } else {
+                loginModal.style.display = (loginModal.style.display === 'flex') ? 'none' : 'flex';
+            }
+        };
+
+        function registerUser() {
+            let u = document.getElementById('username').value;
+            let p = document.getElementById('password').value;
+            
+            let params = { username: u, password: p, isAdmin: true }; 
+            Bmob.User.register(params).then(res => {
+                alert('注册成功，请点击登录按钮登录');
+            }).catch(err => { alert('注册失败:' + err.error); });
+        }
+
+        function loginUser() {
+            let u = document.getElementById('username').value;
+            let p = document.getElementById('password').value;
+            Bmob.User.login(u, p).then(res => {
+                alert('登录成功！');
+                location.reload();
+            }).catch(err => { alert('登录失败:' + err.error); });
+        }
+
+        
+        window.deleteMessage = function(objectId, element) {
+            if(!confirm("确定删除这条留言吗？")) return;
+            const query = Bmob.Query('Danmaku');
+            query.destroy(objectId).then(res => {
+                alert('删除成功');
+                element.parentElement.remove();
+            }).catch(err => { alert('删除失败:' + err.error); });
+        }
+
+        
+        Fancybox.bind("[data-fancybox]", { 
+            Carousel: { infinite: true }, Thumbs: { type: "classic" }, Toolbar: { display: { right: ["close"] } },
+            on: {
+                "Carousel.ready": () => { document.getElementById('dm-input-area').classList.add('hide-input'); },
+                "close": () => { document.getElementById('dm-input-area').classList.remove('hide-input'); }
             }
         });
 
+        
         function updateTimer() {
             const startDate = new Date("2023-08-21T00:00:00"); 
             const now = new Date();
@@ -341,16 +368,12 @@
         const audio = document.getElementById('bg-audio');
         let isPlaying = false;
         btn.onclick = () => {
-            if (isPlaying) { 
-                audio.pause(); 
-                btn.classList.remove('music-playing'); 
-            } else { 
-                audio.play(); 
-                btn.classList.add('music-playing');    
-            }
+            if (isPlaying) { audio.pause(); btn.classList.remove('music-playing'); } 
+            else { audio.play(); btn.classList.add('music-playing'); }
             isPlaying = !isPlaying;
         };
 
+        
         const dmContainer = document.getElementById('danmaku-container');
         const dmInput = document.getElementById('dm-input');
         const dmBtn = document.getElementById('dm-btn');
@@ -369,58 +392,51 @@
             setTimeout(() => dm.remove(), duration * 1000);
         }
 
-        function addCardToWall(text, dateStr) {
+        function addCardToWall(text, dateStr, objectId) {
             const card = document.createElement('div');
             card.className = 'message-card';
-            card.innerHTML = `${text} <span class="message-time">${dateStr}</span>`;
+            
+            let delBtn = '';
+            if(isUserAdmin && objectId) {
+                delBtn = `<div class="delete-btn show-admin" onclick="deleteMessage('${objectId}', this)">×</div>`;
+            }
+            card.innerHTML = `${delBtn}${text} <span class="message-time">${dateStr}</span>`;
             if(messageList.firstChild) messageList.insertBefore(card, messageList.firstChild);
             else messageList.appendChild(card);
         }
 
         function saveToCloud(text) {
-            fetch(BMOB_URL, {
-                method: 'POST',
-                headers: { 'X-Bmob-Application-Id': APP_ID, 'X-Bmob-REST-API-Key': REST_KEY, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ "content": text })
-            })
-            .then(r => r.json())
-            .then(d => console.log('Saved:', d))
-            .catch(e => console.error('Save failed:', e));
+            const query = Bmob.Query('Danmaku');
+            query.set("content", text);
+            query.save().then(res => { console.log('Saved'); }).catch(err => console.log(err));
         }
 
         function loadCloudMessages() {
-            fetch(BMOB_URL + '?order=-createdAt&limit=50', {
-                method: 'GET',
-                headers: { 'X-Bmob-Application-Id': APP_ID, 'X-Bmob-REST-API-Key': REST_KEY, 'Content-Type': 'application/json' }
-            })
-            .then(r => r.json())
-            .then(data => {
+            const query = Bmob.Query("Danmaku");
+            query.order("-createdAt"); 
+            query.limit(50);
+            query.find().then(res => {
                 messageList.innerHTML = '';
-                if (!data.results || data.results.length === 0) {
+                if (res.length === 0) {
                     messageList.innerHTML = '<div style="color:#fff">还没有留言，快来发第一条吧！</div>';
                 } else {
                     let i = 0;
-                    data.results.forEach(item => {
+                    res.forEach(item => {
                         const text = item.content;
                         const date = item.createdAt.split(' ')[0];
-                        addCardToWall(text, date);
+                        addCardToWall(text, date, item.objectId);
                         setTimeout(() => shootDanmaku(text), i * 1500);
                         i++;
                     });
                 }
-            })
-            .catch(e => {
-                console.error('Load failed:', e);
-                messageList.innerHTML = '<div style="color:#fff">网络正在开小差，但爱意永不失联...</div>';
+            }).catch(err => {
+                console.log(err);
+                messageList.innerHTML = '<div style="color:#fff">网络正在开小差...</div>';
             });
         }
 
         function startRandomAtmosphere() {
-            const presets = [
-                "永远开心快乐呀！", "今天的风好甜~", "哇，这张照片好美！", 
-                "Love You Forever", "要一直幸福下去哦 ❤️", "羡慕这两个人~",
-                "背景音乐好好听", "打卡打卡！", "✨✨✨", "好浪漫呀~"
-            ];
+            const presets = ["永远开心快乐呀！", "今天的风好甜~", "哇，这张照片好美！", "Love You Forever", "要一直幸福下去哦 ❤️", "羡慕这两个人~", "背景音乐好好听", "打卡打卡！", "✨✨✨", "好浪漫呀~"];
             setInterval(() => {
                 const msg = presets[Math.floor(Math.random() * presets.length)];
                 shootDanmaku(msg, false); 
@@ -432,12 +448,12 @@
             if(text) {
                 shootDanmaku(text, true); 
                 const now = new Date().toLocaleDateString();
-                addCardToWall(text, now); 
+                
+                addCardToWall(text, now, null); 
                 saveToCloud(text); 
                 dmInput.value = '';
             }
         };
-
         dmInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') dmBtn.click(); });
 
         function createStar() {
